@@ -122,16 +122,105 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
+      <!-- Profile Dropdown Menu -->
+      <li class="nav-item dropdown">
+        @auth
+          <a class="nav-link p-1" data-toggle="dropdown" href="#">
+            <div class="user-panel pt-0 d-flex">
+              <div class="image ">
+                <img src="{{asset('admin/dist/img/user2-160x160.jpg')}}" class="img-circle border border-primary" alt="User Image">
+              </div>
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header"><h5 class="font-weight-bolder">Profile</h5></span>
+            <div class="dropdown-divider"></div>
+            <a href="{{ route('profile.show') }}" class="dropdown-item ">
+              <i class="fa-solid fa-user mr-2"></i> View Profile
+              {{-- <span class="float-right text-muted text-sm">3 mins</span> --}}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{ route('profile.show') }}" class="dropdown-item">
+              <i class="fa-solid fa-gear mr-2"></i> Setting
+              {{-- <span class="float-right text-muted text-sm">12 hours</span> --}}
+            </a>
+            <div class="dropdown-divider"></div>
+            <form method="POST" action="{{ route('logout') }}" x-data>
+              @csrf
+            
+              <button type="submit" class="dropdown-item preview-item"
+              @click.prevent="$root.submit();">
+              <span class="dropdown-item">
+                <i class="fa-solid fa-right-from-bracket mr-2"></i> {{ __('Log Out') }}
+                {{-- <span class="float-right text-muted text-sm">2 days</span> --}}
+              </span>
+              </button>
+            </form>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">Advanced setting</a>
+          </div>
+        @endauth
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
+      @if (Route::has('login'))
+          @auth
+          <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
+            <div class="navbar-profile">
+              @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+              <img class="img-xs rounded-circle" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}">
+              <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
+              <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+              @else
+              <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
+              <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+              @endif
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+            <h6 class="p-3 mb-0"> {{ __('Manage Account') }}</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item" href="{{ route('profile.show') }}">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-settings text-success"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject mb-1">{{ __('Profile') }}</p>
+              </div>
+            </a>
+            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                              <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
+                                  {{ __('API Tokens') }}
+                              </x-jet-dropdown-link>
+            @endif
+            <div class="dropdown-divider"></div>
+              
+            <form method="POST" action="{{ route('logout') }}" x-data>
+              @csrf
+            
+              <button type="submit" class="dropdown-item preview-item"
+              @click.prevent="$root.submit();">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-dark rounded-circle">
+                    <i class="mdi mdi-logout text-danger"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <p class="preview-subject mb-1">{{ __('Log Out') }}</p>
+                </div>
+              </button>
+            </form>
+            <div class="dropdown-divider"></div>
+            <p class="p-3 mb-0 text-center">Advanced settings</p>
+          </div>
+          @else
+              <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
+
+                  @if (Route::has('register'))
+                  <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                  @endif
+              @endauth
+          @endif
     </ul>
 </nav>
   <!-- /.navbar -->
