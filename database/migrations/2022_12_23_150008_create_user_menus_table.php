@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('user_menus', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->string('subtitle');
+            $table->longtext('route');
             $table->string('icon');
             $table->string('color_code');
             $table->longtext('description');

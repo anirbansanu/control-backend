@@ -19,10 +19,29 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+        
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $user = Auth::user();
+
+                if($user->isAdmin())
+                {
+                    return redirect('admin/dashboard');
+                }
+                if($user->isSubadmin())
+                {
+                    return redirect('subadmin/dashboard');
+                }
+
+                if($user->isUser())
+                {
+                    return redirect('user/home');
+                }
+
+                Auth::logout();
+                // return redirect('/login');
                 return redirect(RouteServiceProvider::HOME);
             }
         }

@@ -10,8 +10,16 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+
+use Illuminate\Support\Facades\Auth;
+
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
+
+
 class User extends Authenticatable
 {
+    use HasRoles;
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -58,4 +66,29 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Check user is Admin.
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+    /**
+     * Check user is SubAdmin.
+     */
+    public function isSubadmin()
+    {
+        return $this->hasRole('subadmin');
+    }
+
+    /**
+     * Check user is user.
+     */
+    public function isUser()
+    {
+        return $this->hasRole('user');
+    }
+
+    
 }

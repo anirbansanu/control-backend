@@ -39,7 +39,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('profile.show') }}" data-active="{{request()->routeIs('profile.show')}}">
                                     <i class="fa-solid fa-user mr-2"></i> View Profile
                                 </a>
                             </li>
@@ -65,40 +65,24 @@
             <div class="row">
                 @forelse ($menus as $item)
                     <div class="p-2 p-md-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                        <div class="card" style="background: {{$item->color_code}}">
+                        <a href="{{$item->route}}" class="card" style="background: {{$item->color_code}}">
                             <div class="p-3 pt-4 p-md-4 card-body">
                                 <div class="card-title h5 pb-3" style="display: flex; justify-content: center; align-items: center;">
                                     <font style="font-size: 0.8rem;">
-                                        {{$item->name}}
-                                        <b style="font-weight: 950;font-size: 1.2rem;">{{$item->name}}</b>
+                                        {{$item->subtitle}}
+                                        <b style="font-weight: 950;font-size: 1.2rem;">{{$item->title}}</b>
                                     </font>       
                                 </div>
                                 <div class="w-100 h-100 d-flex justify-content-center">
                                     <i class="{{$item->icon}}" style="font-size: 4rem;"></i>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @empty
                     No Records
                 @endforelse
-                @for ($i = 0; $i < 8; $i++)
-                    <div class="p-2 p-md-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                        <div class="card" style="background: rgb(250, 130, 49); ">
-                            <div class="p-3 pt-4 p-md-4 card-body">
-                                <div class="card-title h5 pb-3" style="display: flex; justify-content: center; align-items: center;">
-                                    <font style="font-size: 0.8rem;">
-                                        Power 
-                                        <b style="font-weight: 950;font-size: 1.2rem;">On/Off</b>
-                                    </font>       
-                                </div>
-                                <div class="w-100 h-100 d-flex justify-content-center">
-                                    <i class="fa-solid fa-power-off" style="font-size: 4rem;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endfor
+                
                 
                 
                 

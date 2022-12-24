@@ -10,6 +10,7 @@ body{
     border-width: 2px;
 }
 .card{
+    text-decoration: none;
     height: 190px;
     border-radius: 8px;
     color: rgb(241, 233, 233);
@@ -23,6 +24,7 @@ body{
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;          /* Likely future */      
 }
+
 .card::before{
     content: "";
     position: absolute;
@@ -43,6 +45,7 @@ transform: skewX(45deg) translateX(200%);
 }
 
 .card:hover{
+    color:antiquewhite;
     transform: scale(1.03);
     box-shadow: 0 10px 20px rgba(253, 251, 251, 0.12), 0 4px 8px rgba(255,255,255,.06);
    
