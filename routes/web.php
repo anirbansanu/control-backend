@@ -42,11 +42,12 @@ Route::group(['middleware' => ['role:user', 'auth:web']],function () {
 
 });
 
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
+Route::prefix('superadmin')->namespace('Superadmin')->name('admin.')->group(function () {
     Route::group(['middleware' => ['role:admin', 'auth:web']],function () {
         Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-        Route::prefix('manage')->name('.manage.')->group(function () {
-            Route::get('menus',[ManageMenusController::class,'index'])->name('index');
+
+        Route::prefix('manage')->name('manage.')->group(function () {
+            Route::get('menus',[ManageMenusController::class,'index'])->name('menus.index');
         });
     });
 });

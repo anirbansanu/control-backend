@@ -4,7 +4,7 @@
             @if($url == '')
                 <li class="breadcrumb-item active">{{ $name }}</li>
             @else
-                <li class="breadcrumb-item"><a href="{{ $url }}">{{ $name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route($url) }}">{{ $name }}</a></li>
             @endif
         @endforeach
     </ol>
