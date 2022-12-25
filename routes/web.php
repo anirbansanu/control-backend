@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ManageMenusController;
+
 use App\Http\Controllers\User\HomeController;
+
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -30,17 +34,22 @@ Route::get('/', function () {
 Route::get('/home',[HomeController::class,'index'])->name('home');
 
 
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
-    Route::group(['middleware' => ['role:admin', 'auth:web']],function () {
-        Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
-    });
-});
+
+
 Route::group(['middleware' => ['role:user', 'auth:web']],function () {
     Route::get('user/home',[HomeController::class,'index'])->name('user.home');
 
 });
 
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
+    Route::group(['middleware' => ['role:admin', 'auth:web']],function () {
+        Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+        Route::prefix('manage')->name('.manage.')->group(function () {
+            Route::get('menus',[ManageMenusController::class,'index'])->name('index');
+        });
+    });
+});
 
 // Route::group(['middleware' => ['role:admin', 'auth:web']],function () {
 //     Route::get('admin/dashboard',[DashboardController::class,'index'])->name('admin.dashboard');
