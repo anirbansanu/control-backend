@@ -40,7 +40,6 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                
               </p>
             </a>
             {{-- <ul class="nav nav-treeview">
@@ -64,14 +63,29 @@
               </li>
             </ul> --}}
           </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.manage.menus.index') }}" class="nav-link {{ strpos(Route::currentRouteName(), 'admin.manage.menus') === 0 ? 'active' : '' }}" data-url={{Route::currentRouteName()}} data-check="{{strpos(Route::currentRouteName(), 'admin.manage.menus')}}">
+          <li class="nav-item {{ strpos(Route::currentRouteName(), 'admin.manage.menus') === 0 ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ strpos(Route::currentRouteName(), 'admin.manage.menus') === 0 ? 'active' : '' }}" data-url={{Route::currentRouteName()}} data-check="{{strpos(Route::currentRouteName(), 'admin.manage.menus')}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Menus
-                <span class="right badge badge-danger">New</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview pl-1">
+              <li class="nav-item">
+                <a href="{{ route('admin.manage.menus.index') }}" class="nav-link {{ strpos(Route::currentRouteName(), 'admin.manage.menus.index') === 0 ? 'active' : '' }}">
+                  <i class="fa-solid fa-list"></i>
+                  <p>List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.manage.menus.create') }}" class="nav-link {{ strpos(Route::currentRouteName(), 'admin.manage.menus.create') === 0 ? 'active' : '' }}">
+                  <i class="fa-solid fa-folder-plus"></i>
+                  <p>Add</p>
+                </a>
+              </li>
+              
+            </ul> 
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
@@ -79,8 +93,10 @@
               <p>
                 Widgets
                 <span class="right badge badge-danger">New</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -93,7 +109,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Top Navigation</p>
                 </a>

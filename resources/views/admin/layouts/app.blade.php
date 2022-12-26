@@ -40,7 +40,8 @@
         <!-- summernote -->
         <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css')}}">
 
-
+        {{-- Sweetalert2 --}}
+        <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
         
         @stack('css')
         <!-- Styles -->
@@ -132,7 +133,78 @@
         <script src="{{ asset('admin/dist/js/demo.js')}}"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="{{ asset('admin/dist/js/pages/dashboard.js')}}"></script>
+        <!-- SweetAlert2 -->
+        <script src="{{ asset('admin/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+        @if (session('success'))
+            <script>
+                    
+                $(function() {
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{session('success')}}',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }, 1500);
+                    
+                });
+            </script>
+        @endif
+        @if (session('error'))
+            <script>
+                    
+                $(function() {
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{session('error')}}',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }, 1500);
+                    
+                });
+            </script>
+        @endif
+        @if (session('info'))
+            <script>
+                    
+                $(function() {
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{session('info')}}',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }, 1500);
+                    
+                });
+            </script>
+        @endif
+        @if (session('question'))
+            <script>
+                    
+                $(function() {
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '{{session('question')}}',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }, 1500);
+                    
+                });
+            </script>
+        @endif
         
+        <script>
+                    
+            
+        </script>
+                    
         
         @stack('js')
         @livewireScripts

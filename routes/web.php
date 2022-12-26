@@ -42,12 +42,16 @@ Route::group(['middleware' => ['role:user', 'auth:web']],function () {
 
 });
 
-Route::prefix('superadmin')->namespace('Superadmin')->name('admin.')->group(function () {
+Route::prefix('superadmin')->namespace('Admin')->name('admin.')->group(function () {
     Route::group(['middleware' => ['role:admin', 'auth:web']],function () {
         Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
 
         Route::prefix('manage')->name('manage.')->group(function () {
             Route::get('menus',[ManageMenusController::class,'index'])->name('menus.index');
+            Route::get('menus/create',[ManageMenusController::class,'create'])->name('menus.create');
+            Route::get('menus/status/{id?}',[ManageMenusController::class,'changeStatus'])->name('menus.status');
+            Route::post('menus/store',[ManageMenusController::class,'store'])->name('menus.store');
+            Route::delete('menus/destroy/{id?}',[ManageMenusController::class,'destroy'])->name('menus.destroy');
         });
     });
 });

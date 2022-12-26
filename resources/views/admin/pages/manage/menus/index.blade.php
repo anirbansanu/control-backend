@@ -12,108 +12,119 @@
 {{-- <link href="{{ asset('user/css/style.css') }}" rel="stylesheet"> --}}
 <!-- Bootstrap Color Picker -->
 <link rel="stylesheet" href="{{ asset('admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+
 @endpush
 @section('content')
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card card-primary">
-                <div class="card-header">
-                <h3 class="card-title">Preview of Menu Card</h3>
-                </div>
-                <div class="card-body">
-                    <a href="#" class="card" style="background: #222;text-decoration:none">
-                        <div class="p-3 pt-4 p-md-4 card-body">
-                            <div class="card-title h5 pb-3" style="display: flex; justify-content: center; align-items: center;">
-                                <font style="font-size: 0.8rem;">
-                                    Subtitle
-                                    <b style="font-weight: 950;font-size: 1.2rem;">Title</b>
-                                </font>       
-                            </div>
-                            <div class="w-100 h-100 d-flex justify-content-center">
-                                <i class="fa-solid fa-icons"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- /.card-body -->
-            </div>
+    <div class="card">
+        <div class="card-header">
+        <h3 class="card-title">Projects</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+            </button>
         </div>
-        <div class="col-md-6">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Input Addon</h3>
-                </div>
-                <div class="card-body">
+        </div>
+        <div class="card-body p-0">
+        <table class="table table-striped projects">
+            <thead>
+                <tr>
+                    <th style="width: 1%" class="text-center">
+                        #
+                    </th>
+                    <th style="width: 20%" class="text-left">
+                        
+                            Title
+                      
+                        <small>
+                            Subtitle
+                        </small>
+                    </th>
+                    <th class="text-left" style="width: 20%">
+                        Route
+                    </th>
+                    <th class="text-right pr-4">
+                        Icon
+                    </th>
+                    <th class="text-left">
+                        Color Code
+                    </th>
+                    <th style="width: 8%" class="text-center">
+                        Status
+                    </th>
+                    <th style="width: 20%" class="text-center">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($menus as $ky=>$item)
+                    <tr>
+                        <td class="text-center">
+                            {{$ky}}
+                        </td>
+                        <td class="text-left">
+                            <a href="#">
+                                {{$item->title}}
+                            </a>
+                            <br>
+                            <small>
+                                {{$item->subtitle}}
+                            </small>
+                        </td>
+                        <td class="text-left"> 
+                            {{$item->route}}
+                        </td>
+                        <td class="text-right pr-1">
+                            <p class="d-flex justify-content-end display-4" style="color: {{$item->color_code}}">
+                                <i class="{{$item->icon}}"></i>
+                            </p>
+                        </td>
+                        
+                        <td class="text-left">
+                            {{$item->color_code}}
+                        </td>
+                        <td class="project-state">
+                            @if ($item->status)
+                                <span class="badge badge-success">Active</span>
+                            @else
+                                <span class="badge badge-warning">Inactive</span>
+                            @endif
+                        </td>
+                        <td class="project-actions text-center">
+                            @if (!$item->status)
+                                <a class="btn btn-success btn-sm" href="{{route('admin.manage.menus.status',$item->id)}}" data-url={{route('admin.manage.menus.status',$item->id)}}>
+                                    <i class="fa-solid fa-play"></i>
+                                    Active
+                                </a>
+                            @else
+                                <a class="btn btn-primary btn-sm" href="{{route('admin.manage.menus.status',$item->id)}}" data-url={{route('admin.manage.menus.status',$item->id)}}>
+                                    <i class="fa-solid fa-ban"></i>
+                                    Inactive
+                                </a>
+                            @endif
+                            <a class="btn btn-info btn-sm edit" href="{{route('admin.manage.menus.status',$item->id)}}">
+                                <i class="fas fa-pencil-alt"> </i>
+                                Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm delete" href="#" data-url={{route('admin.manage.menus.destroy',$item->id)}}>
+                                <i class="fas fa-trash"> </i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr> No Records </tr>
+                @endforelse
                 
-        
-                    <div class="input-group mt-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style=" font-weight: bolder;">Tittle</span>
-                        </div>
-                        <input type="text" name="title" class="form-control">
-                        <div class="input-group-append">
-                            <div class="input-group-text"><i class="fa-solid fa-heading"></i></div>
-                        </div>
-                    </div>
-
-                    <div class="input-group mt-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style=" font-weight: bolder;">Sub Title</span>
-                        </div>
-                        <input type="text" name="subtitle" class="form-control">
-                        <div class="input-group-append">
-                        <div class="input-group-text"><i class="fa-solid fa-closed-captioning"></i></div>
-                        </div>
-                    </div>
-
-                    <div class="input-group mt-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style=" font-weight: bolder;">Menu Icon</span>
-                        </div>
-                        <input type="text" name="menu_icon" class="form-control">
-                        <div class="input-group-append">
-                        <div class="input-group-text"><i class="fa-solid fa-icons"></i></div>
-                        </div>
-                    </div>
-
-                    <div class="input-group mt-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style=" font-weight: bolder;">Menu Link</span>
-                        </div>
-                        <input type="text" name="menu_link" class="form-control">
-                        <div class="input-group-append">
-                        <div class="input-group-text"><i class="fa-solid fa-link"></i></div>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-            
-                    
-                    <div class="form-group mt-3">
-                        <label>Pick a color</label>
-      
-                        <div class="input-group my-colorpicker2" >
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" font-weight: bolder;">Color Code</span>
-                            </div>
-                            <input type="text" name="color_code" class="form-control" data-original-title="" title="">
-      
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-square"></i></span>
-                            </div>
-                        </div>
-                        <!-- /.input group -->
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Description</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
+                
+            </tbody>
+        </table>
         </div>
+        <!-- /.card-body -->
     </div>
     
 @endsection
@@ -128,5 +139,10 @@
         $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
         });
 
+        $(document).on("click",".status",function(ev) {
+            ev.preventDefault();
+            let url = $(this).data('url');
+
+        });
     </script>
 @endpush
