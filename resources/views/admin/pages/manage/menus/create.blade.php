@@ -142,6 +142,8 @@ transform: skewX(45deg) translateX(200%);
                         <div class="input-group-text"><i class="fa-solid fa-icons"></i></div>
                         </div>
                     </div>
+                    {{-- Icon Curl Request --}}
+                    {{-- curl -H "Content-Type: application/json" \-d '{ "query": "query { search(version: \"6.x\", query: \"coff\") { id } }" }' \https://api.fontawesome.com --}}
 
                     <div class="input-group mt-3">
                         <div class="input-group-prepend">

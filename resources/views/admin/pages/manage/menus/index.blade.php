@@ -17,9 +17,12 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-        <h3 class="card-title">Projects</h3>
-
+        <h2 class="card-title font-weight-bolder">Projects</h2>
         <div class="card-tools">
+            <a class="btn btn-primary btn-sm mr-2" href="{{ route('admin.manage.menus.create') }}" >
+                <i class="fa-solid fa-square-plus"></i>
+                <font class="pl-2 font-weight-bolder">Add</font>
+            </a>
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
             </button>
@@ -61,10 +64,13 @@
                 </tr>
             </thead>
             <tbody>
+                
+                
+
                 @forelse ($menus as $ky=>$item)
                     <tr>
                         <td class="text-center">
-                            {{$ky}}
+                            {{$ky+1}}
                         </td>
                         <td class="text-left">
                             <a href="#">

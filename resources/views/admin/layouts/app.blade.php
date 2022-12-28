@@ -45,7 +45,11 @@
         
         @stack('css')
         <!-- Styles -->
-        
+        <style>
+            .menu-open{
+                background: #2c3136;
+            }
+        </style>
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
