@@ -7,6 +7,10 @@ use App\Http\Controllers\Admin\ManageMenusController;
 
 use App\Http\Controllers\User\HomeController;
 
+
+use App\Http\Controllers\IconController;
+
+
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -33,8 +37,7 @@ Route::get('/', function () {
 // Route::get('admin/home',[DashboardController::class,'index'])->name('admin.home');
 Route::get('/home',[HomeController::class,'index'])->name('home');
 
-
-
+Route::get('/icons/{query?}',[IconController::class,'icons'])->name('icons');
 
 
 Route::group(['middleware' => ['role:user', 'auth:web']],function () {

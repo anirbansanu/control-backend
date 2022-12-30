@@ -139,7 +139,7 @@ transform: skewX(45deg) translateX(200%);
                         </div>
                         <input type="text" name="menu_icon" class="form-control">
                         <div class="input-group-append">
-                        <div class="input-group-text"><i class="fa-solid fa-icons"></i></div>
+                            <div class="input-group-text"><i class="fa-solid fa-icons"></i></div>
                         </div>
                     </div>
                     {{-- Icon Curl Request --}}

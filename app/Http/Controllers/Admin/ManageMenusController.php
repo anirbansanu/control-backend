@@ -15,6 +15,7 @@ class ManageMenusController extends Controller
         return view('admin.pages.manage.menus.index',compact('menus'));
     }
     public function create(){
+        
         return view('admin.pages.manage.menus.create');
     }
     public function store(Request $req)
@@ -54,4 +55,5 @@ class ManageMenusController extends Controller
         $menu = UserMenu::destroy($id);
         return redirect()->route('admin.manage.menu.index')->with('success','User Menu Deleted Successfully');
     }
+    
 }
