@@ -1,5 +1,4 @@
-txt = '''.fa,.fa, .fa-brands, .fa-classic, .fa-regular, .fa-sharp, .fa-solid, .fab, .far, .fas,.fa-classic, .fa-regular, .fa-solid, .far, .fas,.fa-brands, .fab,.fa-1x,.fa-2x,.fa-3x,.fa-4x,.fa-5x,.fa-6x,.fa-7x,.fa-8x,.fa-9x,.fa-10x,.fa-2xs,.fa-xs,.fa-sm,.fa-lg,.fa-xl,.fa-2xl,.fa-fw,.fa-ul,.fa-ul > li,.fa-li,.fa-border,.fa-pull-left,.fa-pull-right,.fa-beat,.fa-bounce,.fa-fade,.fa-beat-fade, .fa-fade,
-.fa-beat-fade,.fa-flip,.fa-shake,.fa-shake, .fa-spin,.fa-spin,.fa-spin-reverse,.fa-pulse, .fa-spin-pulse,.fa-rotate-90,.fa-rotate-180,.fa-rotate-270,.fa-flip-horizontal,.fa-flip-vertical,.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical,.fa-rotate-by,.fa-stack,.fa-stack-1x, .fa-stack-2x,.fa-stack-1x,.fa-stack-2x,.fa-inverse,.fa-0::before,.fa-1::before,.fa-2::before,.fa-3::before,.fa-4::before,.fa-5::before,.fa-6::before,.fa-7::before,.fa-8::before,.fa-9::before,.fa-fill-drip::before,.fa-arrows-to-circle::before,.fa-chevron-circle-right::before, .fa-circle-chevron-right::before,
+txt = '''.fas,.fa-0::before,.fa-1::before,.fa-2::before,.fa-3::before,.fa-4::before,.fa-5::before,.fa-6::before,.fa-7::before,.fa-8::before,.fa-9::before,.fa-fill-drip::before,.fa-arrows-to-circle::before,.fa-chevron-circle-right::before, .fa-circle-chevron-right::before,
 .fa-at::before,.fa-trash-alt::before, .fa-trash-can::before,.fa-text-height::before,.fa-user-times::before, .fa-user-xmark::before,.fa-stethoscope::before,.fa-comment-alt::before, .fa-message::before,.fa-info::before,.fa-compress-alt::before, .fa-down-left-and-up-right-to-center::before,.fa-explosion::before,.fa-file-alt::before, .fa-file-lines::before, .fa-file-text::before,.fa-wave-square::before,.fa-ring::before,.fa-building-un::before,.fa-dice-three::before,.fa-calendar-alt::before, .fa-calendar-days::before,.fa-anchor-circle-check::before,.fa-building-circle-arrow-right::before,.fa-volleyball-ball::before, .fa-volleyball::before,.fa-arrows-up-to-line::before,.fa-sort-desc::before, .fa-sort-down::before,.fa-circle-minus::before, .fa-minus-circle::before,.fa-door-open::before,.fa-right-from-bracket::before, .fa-sign-out-alt::before,.fa-atom::before,.fa-soap::before,.fa-heart-music-camera-bolt::before, .fa-icons::before,.fa-microphone-alt-slash::before, .fa-microphone-lines-slash::before,.fa-bridge-circle-check::before,.fa-pump-medical::before,.fa-fingerprint::before,.fa-hand-point-right::before,.fa-magnifying-glass-location::before, .fa-search-location::before,
 .fa-forward-step::before, .fa-step-forward::before,.fa-face-smile-beam::before, .fa-smile-beam::before,.fa-flag-checkered::before,.fa-football-ball::before, .fa-football::before,.fa-school-circle-exclamation::before,.fa-crop::before,.fa-angle-double-down::before, .fa-angles-down::before,.fa-users-rectangle::before,.fa-people-roof::before,.fa-people-line::before,.fa-beer-mug-empty::before, .fa-beer::before,.fa-diagram-predecessor::before,.fa-arrow-up-long::before, .fa-long-arrow-up::before,.fa-burn::before, .fa-fire-flame-simple::before,.fa-male::before, .fa-person::before,.fa-laptop::before,.fa-file-csv::before,.fa-menorah::before,.fa-truck-plane::before,.fa-record-vinyl::before,.fa-face-grin-stars::before, .fa-grin-stars::before,.fa-bong::before,.fa-pastafarianism::before, .fa-spaghetti-monster-flying::before,.fa-arrow-down-up-across-line::before,.fa-spoon::before, .fa-utensil-spoon::before,.fa-jar-wheat::before,.fa-envelopes-bulk::before, .fa-mail-bulk::before,.fa-file-circle-exclamation::before,.fa-circle-h::before, .fa-hospital-symbol::before,.fa-pager::before,.fa-address-book::before, .fa-contact-book::before,.fa-strikethrough::before,
 .fa-k::before,.fa-landmark-flag::before,.fa-pencil-alt::before, .fa-pencil::before,.fa-backward::before,.fa-caret-right::before,.fa-comments::before,.fa-file-clipboard::before, .fa-paste::before,.fa-code-pull-request::before,.fa-clipboard-list::before,.fa-truck-loading::before, .fa-truck-ramp-box::before,.fa-user-check::before,.fa-vial-virus::before,.fa-sheet-plastic::before,.fa-blog::before,.fa-user-ninja::before,.fa-person-arrow-up-from-line::before,.fa-scroll-torah::before, .fa-torah::before,.fa-broom-ball::before, .fa-quidditch-broom-ball::before, .fa-quidditch::before,.fa-toggle-off::before,.fa-archive::before, .fa-box-archive::before,.fa-person-drowning::before,.fa-arrow-down-9-1::before, .fa-sort-numeric-desc::before, .fa-sort-numeric-down-alt::before,.fa-face-grin-tongue-squint::before, .fa-grin-tongue-squint::before,.fa-spray-can::before,.fa-truck-monster::before,.fa-w::before,.fa-earth-africa::before, .fa-globe-africa::before,.fa-rainbow::before,.fa-circle-notch::before,.fa-tablet-alt::before, .fa-tablet-screen-button::before,.fa-paw::before,.fa-cloud::before,
@@ -82,13 +81,20 @@ def split(str,delimeter):
 
 def db(l):
     s = "INSERT INTO `icons` (`title`, `created_at`, `updated_at`) VALUES (%s, %s, %s) "
+    pre_text = 'fas'
     arr = []
     for i in l:
-        arr.append(qv(i))
+        if i == "fab":
+            pre_text='fab'
+            continue
+        if i == "far":
+            pre_text='far'
+            continue
+        arr.append(qv(pre_text,i))
     return arr
         
-def qv(title):
-    return (title,'2022-12-30 20:25:45', '2022-12-30 20:25:45')
+def qv(pre_text,title):
+    return (pre_text+' '+title,'2022-12-30 20:25:45', '2022-12-30 20:25:45')
 
 l = split(txt,",")
 arr = db(l)

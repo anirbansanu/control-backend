@@ -10,6 +10,7 @@ use App\Http\Controllers\User\HomeController;
 
 use App\Http\Controllers\IconController;
 
+use App\Http\Controllers\Apps\ThreeDModel\IndexController as ThreeDModelController;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -36,12 +37,15 @@ Route::get('/', function () {
 });
 // Route::get('admin/home',[DashboardController::class,'index'])->name('admin.home');
 Route::get('/home',[HomeController::class,'index'])->name('home');
+Route::get('/api/icons/{id?}',[IconController::class,'iconlist'])->name('icons');
+Route::get('/icons/{query?}/{version?}',[IconController::class,'icons'])->name('icons');
+Route::get('/test',[IconController::class,'test'])->name('test');
 
-Route::get('/icons/{query?}',[IconController::class,'icons'])->name('icons');
-
+Route::get('apps/threedmodel',[ThreeDModelController::class,'index'])->name('apps.threedmodel');
 
 Route::group(['middleware' => ['role:user', 'auth:web']],function () {
     Route::get('user/home',[HomeController::class,'index'])->name('user.home');
+    
 
 });
 
