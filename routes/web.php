@@ -37,7 +37,7 @@ Route::get('/', function () {
 });
 // Route::get('admin/home',[DashboardController::class,'index'])->name('admin.home');
 Route::get('/home',[HomeController::class,'index'])->name('home');
-Route::get('/api/icons/{id?}',[IconController::class,'iconlist'])->name('icons');
+Route::get('/api/icons/{id?}',[IconController::class,'iconlist'])->name('api.icons');
 Route::get('/icons/{query?}/{version?}',[IconController::class,'icons'])->name('icons');
 Route::get('/test',[IconController::class,'test'])->name('test');
 

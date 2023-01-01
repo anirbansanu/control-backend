@@ -60,7 +60,8 @@ class IconController extends Controller
         }
         $icons = $icons->get();
         // return $icons;
-        return response()->json($icons);
+        // return response()->json($icons);
+        return view('admin.pages.manage.menus.icon-dropdown',compact('icons'))->render();
     }
 
     public function test()

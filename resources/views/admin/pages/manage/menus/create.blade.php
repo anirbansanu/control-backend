@@ -132,16 +132,28 @@ transform: skewX(45deg) translateX(200%);
                         <div class="input-group-text"><i class="fa-solid fa-closed-captioning"></i></div>
                         </div>
                     </div>
+                    <div class="form-group mt-3">
+                        <label>Meun Icon</label>
+                        <div class="dropdown" id="icon-drop-down" >
+                            <div class="input-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" font-weight: bolder;">Menu Icon</span>
+                                </div>
+                                <input type="text" name="menu_icon" class="form-control" id="menu-icon-input" autocomplete="off">
+                                <input type="hidden" name="menu_icon_id" class="form-control" id="menu-icon-input-id" autocomplete="off">
 
-                    <div class="input-group mt-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style=" font-weight: bolder;">Menu Icon</span>
-                        </div>
-                        <input type="text" name="menu_icon" class="form-control">
-                        <div class="input-group-append">
-                            <div class="input-group-text"><i class="fa-solid fa-icons"></i></div>
+                                <div class="input-group-append">
+                                    <div class="input-group-text" id="menu-icon-title"><i class="fa-solid fa-icons"></i></div>
+                                </div>
+                            </div>
+                            <div class="dropdown-menu w-100" style="max-height: 300px; overflow-y:scroll;" id="dropdown-list" aria-labelledby="dropdownMenuOffset">
+                                <p class="px-3 my-1 font-weight-bold" id="dropdown-status">3 chars related to your app</p>
+                                
+                                {{-- Here Javascript append data from ajax call --}}
+                            </div>
                         </div>
                     </div>
+                    
                     {{-- Icon Curl Request --}}
                     {{-- curl -H "Content-Type: application/json" \-d '{ "query": "query { search(version: \"6.x\", query: \"coff\") { id } }" }' \https://api.fontawesome.com --}}
 
@@ -205,6 +217,73 @@ transform: skewX(45deg) translateX(200%);
             let menu_link = $("input[name='menu_link']").val();
             let color_code = $("input[name='color_code']").val();
             $('#menu-card-body').html('<a href="'+menu_link+'" class="card menu-card" style="background:'+color_code+'"> <div class="p-3 pt-4 p-md-4 card-body"> <div class="card-title h5 pb-3 menu-card-title"> <font style="font-size: 0.8rem;">'+subtitle+' <b style="font-weight: 950;font-size: 1.2rem;">'+title+'</b> </font> </div> <div class="w-100 h-100 d-flex justify-content-center display-2"> <i class="'+menu_icon+'"></i> </div> </div> </a>');
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click','#dropdown-list a',function(ev) {
+                ev.preventDefault();
+                let id = $(this).data('id');
+                let title = $(this).data('title');
+                $('#menu-icon-input').val(title);
+                $('#menu-icon-title i').removeClass();
+                $('#menu-icon-title i').addClass(title);
+                $('#menu-icon-input-id').val(id);
+            });
+            $(document).on('change, keyup','#menu-icon-input',function(ev) {
+                let input = $(this).val();
+                console.log('menu-icon-input ');
+                console.log("key press : ",input);
+                if (input.length >= 3) {
+                    let status = $('#dropdown-list #dropdown-status');
+                    status.html("Select a icon from here");
+                    $.ajax({
+                        url: '{{ route("api.icons") }}'+'/'+input,
+                        data: {},
+                        success: function(data) {
+                            $('#dropdown-list').append(data);
+                        },
+                        error:function(data) {
+                            $('#dropdown-list').append('No Data Present');
+                            $('#dropdown-list').append(data);
+                        },
+                    });
+                }
+                else
+                {
+                    let status = $('#dropdown-list #dropdown-status');
+                    status.html("Please enter three characters");
+                }
+            });
+            $('#icon-drop-down').on('show.bs.dropdown', function () {
+                console.log("icon drop down show() called");
+                let input = $('#menu-icon-input').val();
+                console.log("input length : ",input.length);
+                if (input.length >= 3) {
+                    $('#menu-icon-input').parent().find('.error').hide();
+
+                    $.ajax({
+                        url: '{{ route("api.icons") }}'+input,
+                        data: {},
+                        success: function(data) {
+                            $('#dropdown-list').append(data);
+                        },
+                        error:function(data) {
+                            $('#dropdown-list').append('No Data Present');
+                            $('#dropdown-list').append(data);
+                        },
+                    });
+                }
+                else{
+                    
+                }
+            });
+            $('#icon-drop-down').on('hide.bs.dropdown', function () {
+                console.log("icon drop down hide() called");
+                let input = $('#menu-icon-input').val();
+                console.log("input length : ",input.length);
+            });
+
         });
     </script>
 @endpush
