@@ -148,6 +148,7 @@ transform: skewX(45deg) translateX(200%);
                             </div>
                             <div class="dropdown-menu w-100" style="max-height: 300px; overflow-y:scroll;" id="dropdown-list" aria-labelledby="dropdownMenuOffset">
                                 <p class="px-3 my-1 font-weight-bold" id="dropdown-status">3 chars related to your app</p>
+
                                 
                                 {{-- Here Javascript append data from ajax call --}}
                             </div>
@@ -216,19 +217,23 @@ transform: skewX(45deg) translateX(200%);
             let menu_icon = $("input[name='menu_icon']").val();
             let menu_link = $("input[name='menu_link']").val();
             let color_code = $("input[name='color_code']").val();
-            $('#menu-card-body').html('<a href="'+menu_link+'" class="card menu-card" style="background:'+color_code+'"> <div class="p-3 pt-4 p-md-4 card-body"> <div class="card-title h5 pb-3 menu-card-title"> <font style="font-size: 0.8rem;">'+subtitle+' <b style="font-weight: 950;font-size: 1.2rem;">'+title+'</b> </font> </div> <div class="w-100 h-100 d-flex justify-content-center display-2"> <i class="'+menu_icon+'"></i> </div> </div> </a>');
+            updateMenuCard(title,subtitle,menu_icon,menu_link,color_code);
         });
+        function updateMenuCard(title='',subtitle='',menu_icon='',menu_link='',color_code='') {
+            $('#menu-card-body').html('<a href="'+menu_link+'" class="card menu-card" style="background:'+color_code+'"> <div class="p-3 pt-4 p-md-4 card-body"> <div class="card-title h5 pb-3 menu-card-title"> <font style="font-size: 0.8rem;">'+subtitle+' <b style="font-weight: 950;font-size: 1.2rem;">'+title+'</b> </font> </div> <div class="w-100 h-100 d-flex justify-content-center display-2"> <i class="'+menu_icon+'"></i> </div> </div> </a>');
+        }
     </script>
     <script>
         $(document).ready(function() {
             $(document).on('click','#dropdown-list a',function(ev) {
                 ev.preventDefault();
                 let id = $(this).data('id');
-                let title = $(this).data('title');
-                $('#menu-icon-input').val(title);
+                let menu_icon = $(this).data('title');
+                $('#menu-icon-input').val(menu_icon);
                 $('#menu-icon-title i').removeClass();
-                $('#menu-icon-title i').addClass(title);
+                $('#menu-icon-title i').addClass(menu_icon);
                 $('#menu-icon-input-id').val(id);
+                updateMenuCard(title='',subtitle='',menu_icon,menu_link='',color_code='');
             });
             $(document).on('change, keyup','#menu-icon-input',function(ev) {
                 let input = $(this).val();
@@ -236,16 +241,16 @@ transform: skewX(45deg) translateX(200%);
                 console.log("key press : ",input);
                 if (input.length >= 3) {
                     let status = $('#dropdown-list #dropdown-status');
-                    status.html("Select a icon from here");
+                    
                     $.ajax({
                         url: '{{ route("api.icons") }}'+'/'+input,
                         data: {},
                         success: function(data) {
-                            $('#dropdown-list').append(data);
+                            $('#dropdown-list').html(data);
                         },
                         error:function(data) {
-                            $('#dropdown-list').append('No Data Present');
-                            $('#dropdown-list').append(data);
+                            $('#dropdown-list').html('No Data Present');
+                            // $('#dropdown-list').html(data);
                         },
                     });
                 }
@@ -262,17 +267,17 @@ transform: skewX(45deg) translateX(200%);
                 if (input.length >= 3) {
                     $('#menu-icon-input').parent().find('.error').hide();
 
-                    $.ajax({
-                        url: '{{ route("api.icons") }}'+input,
-                        data: {},
-                        success: function(data) {
-                            $('#dropdown-list').append(data);
-                        },
-                        error:function(data) {
-                            $('#dropdown-list').append('No Data Present');
-                            $('#dropdown-list').append(data);
-                        },
-                    });
+                    // $.ajax({
+                    //     url: '{{ route("api.icons") }}'+input,
+                    //     data: {},
+                    //     success: function(data) {
+                    //         $('#dropdown-list').append(data);
+                    //     },
+                    //     error:function(data) {
+                    //         $('#dropdown-list').append('No Data Present');
+                    //         $('#dropdown-list').append(data);
+                    //     },
+                    // });
                 }
                 else{
                     
